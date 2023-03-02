@@ -25,6 +25,8 @@ class Clock {
             time += "0" 
         }
         time += `${this.seconds}`;
+        
+        console.log(time);
     }
 
 
