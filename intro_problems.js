@@ -30,7 +30,7 @@ function addNumbers(sum, numsLeft, completionCallback) {
 Function.prototype.myBind = function(context, ...bindArgs){
     let that = this
     return function(...callArgs){
-            that.call(context, ...bindArgs, ...callArgs)
+           return that.call(context, ...bindArgs, ...callArgs)
     }
 }
 class Lamp {
