@@ -64,6 +64,42 @@ function askIfGreaterThan(el1, el2, callback){
         
     });
 }
-function innerBubbleSortLoop(array, i, madeAnySwaps, outerBubbleSortLoop){
-    
+function innerBubbleSortLoop(array, i, madeAnySwaps=false, outerBubbleSortLoop){
+    if (i < array.length - 1) {
+        askIfGreaterThan(array[i], array[i + 1], function(isGreaterThan) {
+            if (isGreaterThan) {
+                let temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+                madeAnySwaps = true;
+            }
+            innerBubbleSortLoop(array, i + 1, madeAnySwaps, outerBubbleSortLoop)
+        })
+    } else if (i === (array.length - 1)) {
+        outerBubbleSortLoop(madeAnySwaps);
+    }
+
 }
+// const outer = function() {
+//     console.log('outer');
+// }
+// let array = [1, 2, 4, 3, 5];
+// innerBubbleSortLoop(array, 0, false, outer);
+
+function absurdBubbleSort(array, sortCompletionCallback) {
+    
+    function outerBubbleSortLoop (madeAnySwaps) {
+
+        if (madeAnySwaps) {
+            innerBubbleSortLoop(array, 0, false, outerBubbleSortLoop)
+        } else if (!madeAnySwaps) {
+            sortCompletionCallback(array)
+        }
+    }
+    outerBubbleSortLoop(true)
+}
+
+absurdBubbleSort([3, 2, 1], function(arr) {
+    console.log("Sorted array: " + JSON.stringify(arr));
+    rl.close();
+  });
