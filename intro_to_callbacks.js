@@ -6,7 +6,7 @@ class Clock {
         this.minutes = this.date.getMinutes();
         this.seconds = this.date.getSeconds();
         this.printTime();
-        setInterval(_tick, 1000);
+        setInterval(this._tick.bind(this), 1000);
     }
 
     printTime() {
@@ -31,6 +31,23 @@ class Clock {
 
 
     _tick() {
-
+        if (this.seconds < 59){
+        this.seconds++;
+        }else{
+            //hardstuff
+            this.seconds = 0;
+            this.minutes ++;
+            if (this.minute > 59){
+                this.minutes = 0;
+                this.hours++;
+                if(this.hours > 24){
+                    this.hours = 0;
+                }
+            }
+        }
+        
+        this.printTime();
     }
 }
+
+const clock = new Clock();
